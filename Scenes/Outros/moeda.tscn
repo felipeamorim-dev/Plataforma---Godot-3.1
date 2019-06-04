@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Sprites/My_Kirby_sprites.png" type="Texture" id=1]
+[ext_resource path="res://Samples/Effects/coin.ogg" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+resource_name = "moedas"
+script/source = "extends Area2D
+
+
+func _on_moeda_body_entered(body):
+	if body.is_in_group(game.PLAYER):
+		set_collision_layer_bit(3, false)
+		$sample.play()
+		game.score += 1
+		$anim.play(\"coletado\")
+		
+
+func _on_anim_animation_finished(anim_name):
+	if anim_name == \"coletado\":
+		queue_free()
+"
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.06226
+
+[sub_resource type="Animation" id=3]
+resource_name = "coletado"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 128, 112, 16, 16 ), Rect2( 144, 112, 16, 16 ), Rect2( 160, 112, 16, 16 ), Rect2( 176, 112, 16, 16 ), Rect2( 192, 112, 16, 16 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 64, 112, 16, 16 ), Rect2( 80, 112, 16, 16 ), Rect2( 96, 112, 16, 16 ), Rect2( 112, 112, 16, 16 ) ]
+}
+
+[node name="moeda" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = SubResource( 1 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 112, 16, 16 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "spin"
+anims/coletado = SubResource( 3 )
+anims/spin = SubResource( 4 )
+
+[node name="sample" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_moeda_body_entered"]
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
