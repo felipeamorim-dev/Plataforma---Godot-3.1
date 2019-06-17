@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smw_pause.wav-8f9bda5ce8ea1a0f85bda88bbc2bd695.sample"
+
+[deps]
+
+source_file="res://Samples/Effects/smw_pause.wav"
+dest_files=[ "res://.import/smw_pause.wav-8f9bda5ce8ea1a0f85bda88bbc2bd695.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

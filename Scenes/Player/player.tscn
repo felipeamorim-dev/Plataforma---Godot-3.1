@@ -1,11 +1,28 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/My_Kirby_sprites.png" type="Texture" id=2]
+[ext_resource path="res://Samples/Effects/smw_jump.wav" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.83381
 height = 0.078207
+
+[sub_resource type="Animation" id=8]
+resource_name = "die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 128, 16, 16 ), Rect2( 16, 128, 16, 16 ), Rect2( 32, 128, 16, 16 ), Rect2( 48, 128, 16, 16 ), Rect2( 64, 128, 16, 16 ), Rect2( 80, 128, 16, 16 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "fall"
@@ -87,15 +104,15 @@ script = ExtResource( 1 )
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 70, 12, 20, 20 )
+region_rect = Rect2( 6, 12, 20, 20 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 2.12403 )
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+anims/die = SubResource( 8 )
 anims/fall = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/jump = SubResource( 4 )
@@ -116,12 +133,23 @@ position = Vector2( 0, 2.91989 )
 shape = SubResource( 1 )
 
 [node name="pes" type="Area2D" parent="."]
-editor/display_folded = true
 collision_layer = 0
 collision_mask = 4
 
 [node name="pes-shape" type="CollisionShape2D" parent="pes"]
 position = Vector2( 0, 9 )
 shape = SubResource( 7 )
+
+[node name="jump_fx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+
+[node name="visibility" type="VisibilityNotifier2D" parent="."]
+
+[node name="timer_die" type="Timer" parent="."]
+one_shot = true
+[connection signal="new_game" from="." to="." method="new_game"]
 [connection signal="body_exited" from="pass-through" to="pass-through" method="_on_passthrough_body_exited"]
 [connection signal="body_entered" from="pes" to="." method="_on_pes_body_entered"]
+[connection signal="screen_exited" from="visibility" to="." method="_on_visibility_screen_exited"]
+[connection signal="timeout" from="timer_die" to="." method="_on_timer_die_timeout"]

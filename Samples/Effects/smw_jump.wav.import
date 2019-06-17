@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smw_jump.wav-fdc7180b9316b1b2ddde1717a513f028.sample"
+
+[deps]
+
+source_file="res://Samples/Effects/smw_jump.wav"
+dest_files=[ "res://.import/smw_jump.wav-fdc7180b9316b1b2ddde1717a513f028.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -16,11 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="kirby"
-run/main_scene="res://Scenes/Fases/fase 1.tscn"
+run/main_scene="res://Scenes/Fases/menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
+save_data="*res://Scripts/save_data.gd"
 game="*res://Scripts/game.gd"
 
 [display]

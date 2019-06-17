@@ -9,15 +9,21 @@ var anim = ""
 var new_anim = ""
 var runnig = false
 var jumping = false
+var is_alive = true
+const OFFSET_POS = Vector2(63, 79)
+
+
+signal new_game
 
 func _ready():
 	add_to_group(game.PLAYER)
 
 
 func _physics_process(delta):
-	move_player()
-	change_animation() 
-	flip_animation()
+	if is_alive:
+		move_player()
+		change_animation() 
+		flip_animation()
 
 # Move o personagem
 func move_player():
@@ -33,7 +39,7 @@ func move_player():
 	if is_on_floor():
 			# Verifica se foi pressionado o botão de pulo enquanod o player esta no chão
 		if Input.is_action_pressed("jump"): 
-			#$"sample-pulo".play()
+			$jump_fx.play()
 			velocity.y = -JUMP
 		
 		# Verifica se o personagem está no chao e foi pressionado o botão para descer da plataforma
@@ -100,3 +106,61 @@ func _on_pes_body_entered(body):
 		if body.has_method("_dead"):
 			velocity.y = - 200
 			body._dead()
+
+func pre_game():
+	is_alive = true
+	position = OFFSET_POS
+	$anim.play("idle")
+	$shape.set_deferred("disabled", false)
+	$"pes/pes-shape".set_deferred("disabled", false)
+
+func die():
+	if game.vida > 0:
+		is_alive = false
+		$shape.set_deferred("disabled", true)
+		$"pes/pes-shape".set_deferred("disabled", true)
+		game.vida -= 1
+		save_data.save_game()
+		$anim.play("die")
+		yield($anim, "animation_finished")
+		pre_game()
+	else:
+		emit_signal("new_game")
+
+func die_fall():
+	if game.vida > 0:
+		game.vida -= 1
+		save_data.save_game()
+		pre_game()
+	else:
+		emit_signal("new_game")
+
+func _on_visibility_screen_exited():
+	die_fall()
+
+func new_game():
+	save_data.save_game()
+	$timer_die.start()
+
+func _on_timer_die_timeout():
+	get_tree().change_scene("res://Scenes/Fases/game_over.tscn")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

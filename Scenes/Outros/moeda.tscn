@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/My_Kirby_sprites.png" type="Texture" id=1]
-[ext_resource path="res://Samples/Effects/coin.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Samples/Effects/smw_coin.wav" type="AudioStream" id=2]
 
 [sub_resource type="GDScript" id=1]
 resource_name = "moedas"
@@ -76,5 +76,6 @@ anims/spin = SubResource( 4 )
 
 [node name="sample" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+volume_db = -10.0
 [connection signal="body_entered" from="." to="." method="_on_moeda_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
