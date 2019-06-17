@@ -9,6 +9,7 @@ var anim = ""
 var new_anim = ""
 var runnig = false
 var jumping = false
+var is_ground = false
 var is_alive = true
 const OFFSET_POS = Vector2(63, 79)
 
@@ -72,9 +73,15 @@ func change_animation():
 			runnig = false
 			jumping = false
 		
-	if Input.is_action_pressed("jump") || (Input.is_action_pressed("desc_plat") && !get_node("raycast").get_collider()):
+	if Input.is_action_pressed("jump") || (Input.is_action_pressed("desc_plat") && !get_node("raycast").is_colliding()):
 			jumping = true
 			runnig = false
+			is_ground = false
+	
+	# Cria o efeito borrachudo a partir da verificação do momento que colide com o chão
+	if is_on_floor() && !is_ground:
+		is_ground = true
+		$anim_fx.play("eraser")
 	
 	# Vefifica as condições de movimento para setar o tipo de animação 
 	if runnig == true && jumping == false:
@@ -84,6 +91,7 @@ func change_animation():
 			new_anim = "jump"
 		else:
 			new_anim = "fall"
+		
 	if runnig == false && jumping == false:
 		new_anim = "idle"
 	
@@ -100,13 +108,16 @@ func flip_animation():
 	if velocity.x < 0:
 		$sprite.flip_h = true
 
-
+# Método para destroir os inimigos com um pulo na cabeça
 func _on_pes_body_entered(body):
 	if body.is_in_group(game.ENEMY):
 		if body.has_method("_dead"):
 			velocity.y = - 200
 			body._dead()
+		else:
+			die()
 
+# Configuração de inicio após perder vida
 func pre_game():
 	is_alive = true
 	position = OFFSET_POS
@@ -114,19 +125,26 @@ func pre_game():
 	$shape.set_deferred("disabled", false)
 	$"pes/pes-shape".set_deferred("disabled", false)
 
+# Método para terminar o game após o player perder as vidas
 func die():
 	if game.vida > 0:
 		is_alive = false
-		$shape.set_deferred("disabled", true)
-		$"pes/pes-shape".set_deferred("disabled", true)
+		$shape.set_deferred("disabled", true) # Desabilita os colisores do player
+		$"pes/pes-shape".set_deferred("disabled", true) # Desabilita os colisores do player
 		game.vida -= 1
 		save_data.save_game()
 		$anim.play("die")
 		yield($anim, "animation_finished")
 		pre_game()
 	else:
+		is_alive = false
+		$shape.set_deferred("disabled", true) # Desabilita os colisores do player
+		$"pes/pes-shape".set_deferred("disabled", true) # Desabilita os colisores do player
+		$anim.play("die")
+		yield($anim, "animation_finished")
 		emit_signal("new_game")
 
+# Método para terminar o jogo após o player perder as vidas por quedas
 func die_fall():
 	if game.vida > 0:
 		game.vida -= 1
@@ -135,13 +153,16 @@ func die_fall():
 	else:
 		emit_signal("new_game")
 
+# Método de verificação de saida da tela
 func _on_visibility_screen_exited():
 	die_fall()
 
+# Método para chamar a tela de game over
 func new_game():
 	save_data.save_game()
 	$timer_die.start()
 
+# Método que chama a tela de game over apos um determinado tempo
 func _on_timer_die_timeout():
 	get_tree().change_scene("res://Scenes/Fases/game_over.tscn")
 

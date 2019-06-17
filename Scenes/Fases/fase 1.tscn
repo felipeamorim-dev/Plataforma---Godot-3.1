@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/fase 1.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/My_Kirby_sprites.png" type="Texture" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://Scenes/Outros/moeda.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Outros/phantom.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Outros/cacto.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Outros/UI.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Samples/Sounds/Lost-Jungle_Looping.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Scenes/Outros/cebola_spike.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Player/player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Outros/UI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Samples/Sounds/Lost-Jungle_Looping.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "default"
@@ -108,7 +109,6 @@ region_enabled = true
 region_rect = Rect2( 0, 176, 160, 128 )
 
 [node name="tiles" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="fase 1" type="TileMap" parent="tiles"]
 tile_set = ExtResource( 3 )
@@ -414,7 +414,22 @@ position = Vector2( 1001, 208 )
 position = Vector2( 1726, 160 )
 
 [node name="cacto3" parent="inimigos" instance=ExtResource( 9 )]
-position = Vector2( 1975, 192 )
+position = Vector2( 2371, 208 )
+
+[node name="cacto4" parent="inimigos" instance=ExtResource( 9 )]
+position = Vector2( 2578, 240 )
+
+[node name="cacto5" parent="inimigos" instance=ExtResource( 9 )]
+position = Vector2( 3732, 192 )
+
+[node name="cacto6" parent="inimigos" instance=ExtResource( 9 )]
+position = Vector2( 4675, 240 )
+
+[node name="cacto7" parent="inimigos" instance=ExtResource( 9 )]
+position = Vector2( 4807, 176 )
+
+[node name="cacto8" parent="inimigos" instance=ExtResource( 9 )]
+position = Vector2( 4995, 128 )
 
 [node name="phantom2" parent="inimigos" instance=ExtResource( 8 )]
 position = Vector2( 689, 216 )
@@ -422,7 +437,61 @@ position = Vector2( 689, 216 )
 [node name="phantom3" parent="inimigos" instance=ExtResource( 8 )]
 position = Vector2( 1310, 232 )
 
-[node name="player" parent="." instance=ExtResource( 10 )]
+[node name="phantom4" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 2836, 248 )
+
+[node name="phantom5" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 3542, 232 )
+
+[node name="phantom6" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 4181, 264 )
+
+[node name="phantom7" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 4297, 248 )
+
+[node name="phantom8" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 5087, 216 )
+
+[node name="phantom9" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 6024, 136 )
+
+[node name="phantom10" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 6005, 200 )
+
+[node name="phantom11" parent="inimigos" instance=ExtResource( 8 )]
+position = Vector2( 5991, 264 )
+
+[node name="cebola_spike" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 251, 184 )
+
+[node name="cebola_spike2" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 1066, 152 )
+
+[node name="cebola_spike3" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 1491, 104 )
+
+[node name="cebola_spike4" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 2122, 200 )
+
+[node name="cebola_spike5" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 2651, 168 )
+
+[node name="cebola_spike6" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 3397, 263 )
+
+[node name="cebola_spike7" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 3985, 168 )
+
+[node name="cebola_spike8" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 4347, 200 )
+
+[node name="cebola_spike9" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 5322, 216 )
+
+[node name="cebola_spike10" parent="inimigos" instance=ExtResource( 10 )]
+position = Vector2( 5836, 168 )
+
+[node name="player" parent="." instance=ExtResource( 11 )]
 editor/display_folded = true
 position = Vector2( 63, 79 )
 
@@ -438,8 +507,8 @@ limit_bottom = 320
 [node name="GUI" type="CanvasLayer" parent="."]
 editor/display_folded = true
 
-[node name="UI" parent="GUI" instance=ExtResource( 11 )]
+[node name="UI" parent="GUI" instance=ExtResource( 12 )]
 
 [node name="musica_fx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = -10.0
