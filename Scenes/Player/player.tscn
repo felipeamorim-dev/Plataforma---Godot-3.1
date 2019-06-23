@@ -8,7 +8,7 @@
 radius = 6.83381
 height = 0.078207
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "die"
 length = 0.5
 tracks/0/type = "value"
@@ -24,8 +24,7 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 128, 16, 16 ), Rect2( 16, 128, 16, 16 ), Rect2( 32, 128, 16, 16 ), Rect2( 48, 128, 16, 16 ), Rect2( 64, 128, 16, 16 ), Rect2( 80, 128, 16, 16 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "fall"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:region_rect")
 tracks/0/interp = 1
@@ -39,7 +38,7 @@ tracks/0/keys = {
 "values": [ Rect2( 70, 44, 20, 20 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:region_rect")
 tracks/0/interp = 1
@@ -53,8 +52,7 @@ tracks/0/keys = {
 "values": [ Rect2( 6, 12, 20, 20 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "jump"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:region_rect")
 tracks/0/interp = 1
@@ -68,7 +66,7 @@ tracks/0/keys = {
 "values": [ Rect2( 38, 44, 20, 20 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -84,7 +82,7 @@ tracks/0/keys = {
 "values": [ Rect2( 38, 12, 20, 20 ), Rect2( 70, 12, 20, 20 ), Rect2( 6, 44, 20, 20 ), Rect2( 6, 12, 20, 20 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "eraser"
 length = 0.3
 tracks/0/type = "value"
@@ -100,7 +98,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.3, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=8]
 script/source = "extends Area2D
 
 
@@ -110,7 +108,7 @@ func _on_passthrough_body_exited(body):
 		get_parent().set_collision_mask_bit(1, true)
 "
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 5.20267, 1.9433 )
 
 [node name="player" type="KinematicBody2D"]
@@ -125,35 +123,31 @@ region_enabled = true
 region_rect = Rect2( 6, 12, 20, 20 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 2.12403 )
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/die = SubResource( 8 )
-anims/fall = SubResource( 2 )
-anims/idle = SubResource( 3 )
-anims/jump = SubResource( 4 )
-anims/run = SubResource( 5 )
+anims/die = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/run = SubResource( 6 )
 
 [node name="anim_fx" type="AnimationPlayer" parent="."]
-anims/eraser = SubResource( 9 )
+anims/eraser = SubResource( 7 )
 
 [node name="raycast" type="RayCast2D" parent="."]
-visible = false
 enabled = true
 cast_to = Vector2( 0, 10 )
 
 [node name="visibility" type="VisibilityNotifier2D" parent="."]
-visible = false
 
 [node name="pass-through" type="Area2D" parent="."]
 editor/display_folded = true
-visible = false
 collision_layer = 0
 collision_mask = 2
-script = SubResource( 6 )
+script = SubResource( 8 )
 
 [node name="pass-shape" type="CollisionShape2D" parent="pass-through"]
 position = Vector2( 0, 2.91989 )
@@ -161,13 +155,12 @@ shape = SubResource( 1 )
 
 [node name="pes" type="Area2D" parent="."]
 editor/display_folded = true
-visible = false
 collision_layer = 0
 collision_mask = 4
 
 [node name="pes-shape" type="CollisionShape2D" parent="pes"]
 position = Vector2( 0, 9 )
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 
 [node name="timer_die" type="Timer" parent="."]
 one_shot = true

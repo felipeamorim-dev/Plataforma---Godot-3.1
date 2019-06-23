@@ -5,7 +5,7 @@ const GRAVITY = 500
 const UP = Vector2(0, -1)
 var velocity = Vector2()
 var dir = -1
-	
+
 
 func change_move(delta):
 	

@@ -127,19 +127,16 @@ func pre_game():
 
 # Método para terminar o game após o player perder as vidas
 func die():
+	$shape.disabled = true # Desabilita os colisores do player
+	$"pes/pes-shape".set_deferred("disabled", true) # Desabilita os colisores do player
+	is_alive = false
 	if game.vida > 0:
-		is_alive = false
-		$shape.set_deferred("disabled", true) # Desabilita os colisores do player
-		$"pes/pes-shape".set_deferred("disabled", true) # Desabilita os colisores do player
 		game.vida -= 1
 		save_data.save_game()
 		$anim.play("die")
 		yield($anim, "animation_finished")
 		pre_game()
 	else:
-		is_alive = false
-		$shape.set_deferred("disabled", true) # Desabilita os colisores do player
-		$"pes/pes-shape".set_deferred("disabled", true) # Desabilita os colisores do player
 		$anim.play("die")
 		yield($anim, "animation_finished")
 		emit_signal("new_game")
@@ -167,21 +164,6 @@ func _on_timer_die_timeout():
 	get_tree().change_scene("res://Scenes/Fases/game_over.tscn")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+func _on_next_fase():
+	$timer_die.wait_time = 3
+	new_game()

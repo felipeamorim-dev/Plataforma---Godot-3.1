@@ -3,10 +3,10 @@
 [ext_resource path="res://Scripts/cebola_spike.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/My_Kirby_sprites.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 6 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "destroy"
 length = 0.5
 tracks/0/type = "value"
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 128, 16, 16 ), Rect2( 16, 128, 16, 16 ), Rect2( 32, 128, 16, 16 ), Rect2( 48, 128, 16, 16 ), Rect2( 64, 128, 16, 16 ), Rect2( 80, 128, 16, 16 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "run"
 length = 0.6
 loop = true
@@ -39,8 +39,8 @@ tracks/0/keys = {
 "values": [ Rect2( 160, 0, 16, 16 ), Rect2( 144, 0, 16, 16 ), Rect2( 176, 0, 16, 16 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 8, 7 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 7, 7 )
 
 [node name="cebola_spike" type="KinematicBody2D"]
 collision_layer = 4
@@ -53,9 +53,8 @@ region_enabled = true
 region_rect = Rect2( 160, 0, 16, 16 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 2 )
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 
 [node name="raycast" type="RayCast2D" parent="."]
 position = Vector2( -6, 4 )
@@ -65,12 +64,12 @@ collision_mask = 3
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "run"
-anims/destroy = SubResource( 5 )
-anims/run = SubResource( 6 )
+anims/destroy = SubResource( 2 )
+anims/run = SubResource( 3 )
 
 [node name="body" type="Area2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="body"]
-position = Vector2( 0, 1 )
-shape = SubResource( 8 )
+position = Vector2( 0, 2 )
+shape = SubResource( 4 )
 [connection signal="body_entered" from="body" to="." method="_on_body_body_entered"]

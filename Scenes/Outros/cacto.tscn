@@ -42,7 +42,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 9, 7 )
+extents = Vector2( 11, 7 )
 
 [node name="cacto" instance=ExtResource( 1 )]
 
@@ -62,5 +62,5 @@ anims/run = SubResource( 4 )
 position = Vector2( -6, 14 )
 
 [node name="shape" parent="body" index="0"]
-position = Vector2( 0, 4 )
+position = Vector2( 0, 6 )
 shape = SubResource( 5 )
